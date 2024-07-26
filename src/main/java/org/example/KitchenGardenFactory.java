@@ -1,24 +1,29 @@
 package org.example;
 
+import it.unimi.dsi.util.XoRoShiRo128PlusRandom;
 import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.stream.IntStream;
+import java.util.Arrays;
 
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class KitchenGarden {
-    private final List<AbstractMap.SimpleEntry<Integer, String>> carrots;
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class KitchenGardenFactory {
+    private static final XoRoShiRo128PlusRandom RANDOMIZER = new XoRoShiRo128PlusRandom();
 
-    public static KitchenGarden create() {
-        final Random randomizer = new Random();
+    public static int[] kitchenGarden() {
+        final int[] kitchenGarden = new int[5];
 
-        IntStream.rangeClosed(1, 5)
-                .map(carrotSize -> new AbstractMap.SimpleEntry<>(carrotSize, randomizer.nextInt(0, 5)))
+        kitchenGarden[4] = RANDOMIZER.nextInt(0, 2);
+        kitchenGarden[3] = RANDOMIZER.nextInt(0, 2);
+        kitchenGarden[2] = RANDOMIZER.nextInt(0, 2);
+        kitchenGarden[1] = RANDOMIZER.nextInt(0, 3);
+        kitchenGarden[0] = RANDOMIZER.nextInt(0, 6);
+        return kitchenGarden;
+    }
 
-
+    public static void main(String[] args) {
+        for (int i = 0; i < 100; i++) {
+            System.out.println(Arrays.toString(KitchenGardenFactory.kitchenGarden()));
+        }
     }
 }

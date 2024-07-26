@@ -1,4 +1,5 @@
 package org.example;
 
-public class Hare {
+public interface Hare {
+    int[][] visit();
 }
